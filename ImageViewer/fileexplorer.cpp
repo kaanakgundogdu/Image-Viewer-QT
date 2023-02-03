@@ -65,15 +65,15 @@ QString FileExplorer::prev_file()
 
 bool FileExplorer::has_next_file()
 {
-
+    return has_next;
 }
 
 bool FileExplorer::has_prev_file()
 {
-
+    return has_prev;
 }
 
 QString FileExplorer::get_current_file_name()
 {
-
+    return current_file_name;
 }

@@ -20,6 +20,8 @@ set(PROJECT_SOURCES
         resources.qrc
         fileexplorer.h
         fileexplorer.cpp
+        graphmanager.h
+        graphmanager.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

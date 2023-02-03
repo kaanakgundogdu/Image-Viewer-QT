@@ -1,11 +1,15 @@
 #include "widget.h"
+#include "graphmanager.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Widget w;
+
+    GraphManager gm;
+
+    Widget w{gm};
     w.show();
     return a.exec();
 }
