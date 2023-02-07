@@ -1,6 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+//#include <QMainWindow>
 #include <QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -20,7 +21,7 @@ public:
     void open_image(const QString full_path);
 
 protected:
-    void  keyPressEvent(QKeyEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
     void wheelEvent(QWheelEvent* event) override;
     void mouseDoubleClickEvent(QMouseEvent* event) override;
     void dragEnterEvent(QDragEnterEvent* event) override;
@@ -39,10 +40,15 @@ private:
     void show_open_dialog();
     void update_buttons();
 
+    void connect_buttons();
+    void create_menu_bar();
+
 private:
     Ui::Widget *ui;
     GraphManager& graph_manager;
     const QString default_window_title="ImageViewer";
+    int zoom_in_counter=0;
+    int zoom_out_counter=0;
 
 };
 #endif // WIDGET_H

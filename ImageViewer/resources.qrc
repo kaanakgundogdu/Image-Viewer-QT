@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>resources/icons/left.svg</file>
-        <file>resources/icons/right.svg</file>
+        <file>resources/icons/previous.png</file>
+        <file>resources/icons/next.png</file>
+        <file>resources/icons/hom.jpg</file>
     </qresource>
 </RCC>

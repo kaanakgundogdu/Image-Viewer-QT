@@ -10,6 +10,9 @@
     <height>520</height>
    </rect>
   </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
   <property name="focusPolicy">
    <enum>Qt::WheelFocus</enum>
   </property>
@@ -17,17 +20,48 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>ImageViewer</string>
+   <string>Image Viewer</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/resources/icons/hom.jpg</normaloff>:/resources/icons/hom.jpg</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QPushButton" name="prev_button">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string/>
      </property>
      <property name="icon">
       <iconset resource="resources.qrc">
-       <normaloff>:/resources/icons/left.svg</normaloff>:/resources/icons/left.svg</iconset>
+       <normaloff>:/resources/icons/previous.png</normaloff>:/resources/icons/previous.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>40</width>
+       <height>40</height>
+      </size>
      </property>
      <property name="flat">
       <bool>true</bool>
@@ -36,22 +70,43 @@
    </item>
    <item>
     <widget class="QGraphicsView" name="graph_view">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="acceptDrops">
       <bool>false</bool>
      </property>
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
     </widget>
    </item>
    <item>
     <widget class="QPushButton" name="next_button">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string/>
      </property>
      <property name="icon">
       <iconset resource="resources.qrc">
-       <normaloff>:/resources/icons/right.svg</normaloff>:/resources/icons/right.svg</iconset>
+       <normaloff>:/resources/icons/next.png</normaloff>:/resources/icons/next.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>40</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="default">
+      <bool>false</bool>
      </property>
      <property name="flat">
       <bool>true</bool>

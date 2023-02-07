@@ -7,7 +7,7 @@
 #include <QWheelEvent>
 #include <QDropEvent>
 #include <QMimeData>
-
+#include <QMenuBar>
 
 Widget::Widget(GraphManager& gm,QWidget *parent)
     : QWidget(parent)
@@ -18,7 +18,19 @@ Widget::Widget(GraphManager& gm,QWidget *parent)
 
     setWindowTitle(default_window_title);
     ui->graph_view->setScene(graph_manager.scene());
+    ui->graph_view->hide();
+    connect_buttons();
+    create_menu_bar();
+}
 
+Widget::~Widget()
+{
+    delete ui;
+}
+
+
+void Widget::connect_buttons()
+{
     connect(ui->next_button,&QPushButton::clicked,
             this,&Widget::on_next_button_clicked);
     connect(ui->prev_button,&QPushButton::clicked,
@@ -27,10 +39,27 @@ Widget::Widget(GraphManager& gm,QWidget *parent)
             this,&Widget::on_image_changed);
 }
 
-Widget::~Widget()
+void Widget::create_menu_bar()
 {
-    delete ui;
+    QMenuBar* menu_bar = new QMenuBar(this);
+    QMenu *file_menu = new QMenu("File");
+    QMenu *edit_menu = new QMenu("Edit");
+    QMenu *help_menu = new QMenu("Help");
+    menu_bar->addMenu(file_menu);
+    menu_bar->addMenu(edit_menu);
+    menu_bar->addMenu(help_menu);
+    auto *open = new QAction("&Open", this);
+    auto *exit = new QAction("&Exit", this);
+    file_menu->addAction(open);
+    file_menu->addAction(exit);
+
+    connect(open, &QAction::triggered,this,&Widget::show_open_dialog);
+    connect(exit, &QAction::triggered,this,QApplication::quit);
+
+    update_buttons();
+    this->layout()->setMenuBar(menu_bar);
 }
+
 
 void Widget::open_image(const QString full_path)
 {
@@ -146,7 +175,7 @@ void Widget::zoom_out()
 void Widget::show_open_dialog()
 {
     QString image_extensions= QString("Images(%0)").arg(graph_manager.supported_extensions().join(" "));
-    QString path=QFileDialog::getOpenFileName(this,"Open Image","",image_extensions);
+    QString path=QFileDialog::getOpenFileName(this,"Open Image","C:/Users/azupl/OneDrive/Belgeler/Mangas",image_extensions);
     if(path.size())
         open_image(path);
 }
@@ -156,4 +185,5 @@ void Widget::update_buttons()
     ui->next_button->setEnabled(graph_manager.has_next_image());
     ui->prev_button->setEnabled(graph_manager.has_prev_image());
 }
+
 
