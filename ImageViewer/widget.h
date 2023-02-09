@@ -47,8 +47,6 @@ private:
     Ui::Widget *ui;
     GraphManager& graph_manager;
     const QString default_window_title="ImageViewer";
-    int zoom_in_counter=0;
-    int zoom_out_counter=0;
-
+    int zoom_counter=0;
 };
 #endif // WIDGET_H

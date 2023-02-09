@@ -18,7 +18,7 @@ Widget::Widget(GraphManager& gm,QWidget *parent)
 
     setWindowTitle(default_window_title);
     ui->graph_view->setScene(graph_manager.scene());
-    ui->graph_view->hide();
+    //ui->graph_view->hide();
     connect_buttons();
     create_menu_bar();
 }
@@ -164,18 +164,24 @@ void Widget::fit_in_view()
 
 void Widget::zoom_in()
 {
+    if(zoom_counter>8)
+        return;
+    zoom_counter++;
     ui->graph_view->scale(1.1,1.1);
 }
 
 void Widget::zoom_out()
 {
+    if (zoom_counter<-5)
+        return;
+    zoom_counter--;
     ui->graph_view->scale(0.9,0.9);
 }
 
 void Widget::show_open_dialog()
 {
     QString image_extensions= QString("Images(%0)").arg(graph_manager.supported_extensions().join(" "));
-    QString path=QFileDialog::getOpenFileName(this,"Open Image","C:/Users/azupl/OneDrive/Belgeler/Mangas",image_extensions);
+    QString path=QFileDialog::getOpenFileName(this,"Open Image","",image_extensions);
     if(path.size())
         open_image(path);
 }
