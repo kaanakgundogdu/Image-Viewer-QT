@@ -42,6 +42,8 @@ private:
 
     void connect_buttons();
     void create_menu_bar();
+    void open_default_view();
+    void open_image_view();
 
 private:
     Ui::Widget *ui;

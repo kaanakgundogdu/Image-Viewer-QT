@@ -18,9 +18,11 @@ Widget::Widget(GraphManager& gm,QWidget *parent)
 
     setWindowTitle(default_window_title);
     ui->graph_view->setScene(graph_manager.scene());
-    //ui->graph_view->hide();
+
     connect_buttons();
     create_menu_bar();
+    open_default_view();
+
 }
 
 Widget::~Widget()
@@ -37,6 +39,8 @@ void Widget::connect_buttons()
             this,&Widget::on_prev_button_clicked);
     connect(&graph_manager,&GraphManager::image_changed,
             this,&Widget::on_image_changed);
+    connect(ui->open_image_button,&QPushButton::clicked,
+            this,&Widget::show_open_dialog);
 }
 
 void Widget::create_menu_bar()
@@ -60,13 +64,34 @@ void Widget::create_menu_bar()
     this->layout()->setMenuBar(menu_bar);
 }
 
+void Widget::open_default_view()
+{
+    ui->graph_view->hide();
+    ui->next_button->hide();
+    ui->prev_button->hide();
+    ui->open_image_button->show();
+    ui->images_in_current_folder_list_view->hide();
+}
+
+void Widget::open_image_view()
+{
+    ui->graph_view->show();
+    ui->next_button->show();
+    ui->prev_button->show();
+    ui->open_image_button->hide();
+}
+
 
 void Widget::open_image(const QString full_path)
 {
+    if(ui->graph_view->isHidden())
+        open_image_view();
+
     if(graph_manager.is_file_supported(full_path)){
         graph_manager.open_image(full_path);
         fit_in_view();
     }
+    zoom_counter=0;
     update_buttons();
 }
 
@@ -92,9 +117,9 @@ void Widget::wheelEvent(QWheelEvent *event)
 {
     if (event->angleDelta().y() > 0)
         zoom_in();
+
     else
         zoom_out();
-
 }
 
 void Widget::mouseDoubleClickEvent(QMouseEvent *event)
@@ -136,6 +161,7 @@ void Widget::on_prev_button_clicked()
 
 void Widget::on_image_changed(const QString &file_name)
 {
+    zoom_counter=0;
     setWindowTitle(QString("%0 - \"%1\"").arg(default_window_title).arg(file_name));
 }
 
@@ -164,18 +190,18 @@ void Widget::fit_in_view()
 
 void Widget::zoom_in()
 {
-    if(zoom_counter>8)
+    if(zoom_counter>8 )
         return;
     zoom_counter++;
-    ui->graph_view->scale(1.1,1.1);
+    ui->graph_view->scale(1.10000,1.10000);
 }
 
 void Widget::zoom_out()
 {
-    if (zoom_counter<-5)
+    if (zoom_counter<-6)
         return;
     zoom_counter--;
-    ui->graph_view->scale(0.9,0.9);
+    ui->graph_view->scale(0.90000,0.9000);
 }
 
 void Widget::show_open_dialog()
