@@ -47,6 +47,11 @@ bool GraphManager::has_prev_image()
     return file_exp.has_prev_file();
 }
 
+QStringList GraphManager::get_file_names()
+{
+    return file_exp.get_file_names();
+}
+
 void GraphManager::fit_in_view()
 {
     if (image_scene->items().size() && image_scene->views().size()) {

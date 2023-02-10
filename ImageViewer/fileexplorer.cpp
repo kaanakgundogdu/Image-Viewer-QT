@@ -26,6 +26,11 @@ void FileExplorer::open_file(const QString &file_path)
 
 }
 
+QStringList FileExplorer::get_file_names()
+{
+    return file_names_in_current_path;
+}
+
 QString FileExplorer::next_file()
 {
     QFileInfo current(current_file_path);

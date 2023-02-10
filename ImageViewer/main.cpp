@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     GraphManager gm;
 
     Widget w{gm};
-    w.setWindowState(Qt::WindowMaximized);
+    //w.setWindowState(Qt::WindowMaximized);
     w.show();
     return a.exec();
 }

@@ -22,6 +22,8 @@ set(PROJECT_SOURCES
         fileexplorer.cpp
         graphmanager.h
         graphmanager.cpp
+        imagelist.h
+        imagelist.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

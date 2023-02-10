@@ -45,6 +45,8 @@ private:
     void open_default_view();
     void open_image_view();
 
+    void fill_list_view();
+
 private:
     Ui::Widget *ui;
     GraphManager& graph_manager;

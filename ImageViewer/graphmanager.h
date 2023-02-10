@@ -21,6 +21,7 @@ public:
     void prev_image();
     bool has_next_image();
     bool has_prev_image();
+    QStringList get_file_names();
 
     void fit_in_view();
     bool is_file_supported(const QString& full_path);

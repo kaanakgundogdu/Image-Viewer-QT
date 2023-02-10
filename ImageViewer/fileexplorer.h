@@ -12,6 +12,7 @@ public:
     void set_extensions(const QStringList& extensions);
     void open_file(const QString& file_path);
 
+    QStringList get_file_names();
     QString next_file();
     QString prev_file();
 

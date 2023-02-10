@@ -70,7 +70,7 @@ void Widget::open_default_view()
     ui->next_button->hide();
     ui->prev_button->hide();
     ui->open_image_button->show();
-    ui->images_in_current_folder_list_view->hide();
+    ui->image_names_list_widget->hide();
 }
 
 void Widget::open_image_view()
@@ -91,6 +91,7 @@ void Widget::open_image(const QString full_path)
         graph_manager.open_image(full_path);
         fit_in_view();
     }
+    fill_list_view();
     zoom_counter=0;
     update_buttons();
 }
@@ -217,5 +218,27 @@ void Widget::update_buttons()
     ui->next_button->setEnabled(graph_manager.has_next_image());
     ui->prev_button->setEnabled(graph_manager.has_prev_image());
 }
+
+void Widget::fill_list_view()
+{
+    QStringList ls= graph_manager.get_file_names();
+    ui->image_names_list_widget->show();
+    for (int i = 0; i < ls.size(); ++i) {
+        //qInfo()<<ls[i];
+        ui->image_names_list_widget->addItem(ls[i]);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
