@@ -20,10 +20,15 @@ void FileExplorer::open_file(const QString &file_path)
     current_file_name=current.fileName();
 
     file_names_in_current_path=dir.entryList(supported_file_extensions,QDir::Files,QDir::Name);
-    int index=file_names_in_current_path.indexOf(current_file_name);
-    has_prev=index!=0 ? true:false;
-    has_next=index!=supported_file_extensions.size()-1 ? true:false;
+    current_index=file_names_in_current_path.indexOf(current_file_name);
+    has_prev=current_index!=0 ? true:false;
+    has_next=current_index!=supported_file_extensions.size()-1 ? true:false;
 
+}
+
+unsigned short int FileExplorer::get_current_index()
+{
+    return current_index;
 }
 
 QStringList FileExplorer::get_file_names()
@@ -43,6 +48,7 @@ QString FileExplorer::next_file()
         if (index==file_names_in_current_path.size()-2)
             has_next=false;
         current_file_path=dir.absoluteFilePath(file_names_in_current_path.at(index+1));
+        current_index=index+1;
         current=QFileInfo(current_file_path);
         current_file_name=current.fileName();
     }
@@ -62,6 +68,7 @@ QString FileExplorer::prev_file()
         if (index==1)
             has_prev=false;
         current_file_path=dir.absoluteFilePath(file_names_in_current_path.at(index-1));
+        current_index=index-1;
         current=QFileInfo(current_file_path);
         current_file_name=current.fileName();
     }

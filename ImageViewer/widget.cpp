@@ -89,9 +89,9 @@ void Widget::open_image(const QString full_path)
 
     if(graph_manager.is_file_supported(full_path)){
         graph_manager.open_image(full_path);
+        fill_list_view();
         fit_in_view();
     }
-    fill_list_view();
     zoom_counter=0;
     update_buttons();
 }
@@ -217,6 +217,7 @@ void Widget::update_buttons()
 {
     ui->next_button->setEnabled(graph_manager.has_next_image());
     ui->prev_button->setEnabled(graph_manager.has_prev_image());
+    set_list_index();
 }
 
 void Widget::fill_list_view()
@@ -227,7 +228,13 @@ void Widget::fill_list_view()
         //qInfo()<<ls[i];
         ui->image_names_list_widget->addItem(ls[i]);
     }
+}
 
+void Widget::set_list_index()
+{
+    auto current_index=graph_manager.get_current_index();
+    qInfo()<<current_index;
+    ui->image_names_list_widget->setCurrentItem(ui->image_names_list_widget->item(current_index));
 }
 
 

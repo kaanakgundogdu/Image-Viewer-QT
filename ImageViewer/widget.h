@@ -46,6 +46,7 @@ private:
     void open_image_view();
 
     void fill_list_view();
+    void set_list_index();
 
 private:
     Ui::Widget *ui;

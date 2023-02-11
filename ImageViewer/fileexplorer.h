@@ -11,6 +11,7 @@ public:
 
     void set_extensions(const QStringList& extensions);
     void open_file(const QString& file_path);
+    unsigned short int get_current_index();
 
     QStringList get_file_names();
     QString next_file();
@@ -25,6 +26,8 @@ private:
     QStringList file_names_in_current_path;
     QString current_file_name;
     QString current_file_path;
+
+    unsigned short int current_index;
 
     bool has_next=false;
     bool has_prev=false;

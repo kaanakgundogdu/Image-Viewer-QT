@@ -52,6 +52,11 @@ QStringList GraphManager::get_file_names()
     return file_exp.get_file_names();
 }
 
+unsigned short GraphManager::get_current_index()
+{
+    return file_exp.get_current_index();
+}
+
 void GraphManager::fit_in_view()
 {
     if (image_scene->items().size() && image_scene->views().size()) {
