@@ -8,6 +8,7 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include <QMenuBar>
+#include <QSplitter>
 
 Widget::Widget(GraphManager& gm,QWidget *parent)
     : QWidget(parent)
@@ -15,14 +16,12 @@ Widget::Widget(GraphManager& gm,QWidget *parent)
     , graph_manager(gm)
 {
     ui->setupUi(this);
-
+    //this->setStyleSheet("background-color: gray;");
     setWindowTitle(default_window_title);
     ui->graph_view->setScene(graph_manager.scene());
-
     connect_buttons();
     create_menu_bar();
     open_default_view();
-
 }
 
 Widget::~Widget()
@@ -49,19 +48,35 @@ void Widget::create_menu_bar()
     QMenu *file_menu = new QMenu("File");
     QMenu *edit_menu = new QMenu("Edit");
     QMenu *help_menu = new QMenu("Help");
+
     menu_bar->addMenu(file_menu);
     menu_bar->addMenu(edit_menu);
     menu_bar->addMenu(help_menu);
-    auto *open = new QAction("&Open", this);
-    auto *exit = new QAction("&Exit", this);
+
+    QMenuBar *bar = new QMenuBar(menu_bar);
+
+    QAction *change_bg_action = new QAction("Change BG Color", bar);
+    bar->addAction(change_bg_action);
+
+    menu_bar->setCornerWidget(bar);
+
+    QAction *open = new QAction("&Open", this);
+    QAction *exit = new QAction("&Exit", this);
+    QAction *makebgblack = new QAction("&makebgblack", this);
+
     file_menu->addAction(open);
     file_menu->addAction(exit);
+    edit_menu->addAction(makebgblack);
 
     connect(open, &QAction::triggered,this,&Widget::show_open_dialog);
     connect(exit, &QAction::triggered,this,QApplication::quit);
+    connect(makebgblack, &QAction::triggered,this,&Widget::make_view_background_black);
+    connect(change_bg_action, &QAction::triggered,this,&Widget::make_view_background_black);
+
 
     update_buttons();
     this->layout()->setMenuBar(menu_bar);
+
 }
 
 void Widget::open_default_view()
@@ -93,6 +108,7 @@ void Widget::open_image(const QString full_path)
         fit_in_view();
     }
     zoom_counter=0;
+
     update_buttons();
 }
 
@@ -150,6 +166,12 @@ void Widget::dropEvent(QDropEvent *event)
     }
 }
 
+void Widget::resizeEvent(QResizeEvent *event)
+{
+    fit_in_view();
+    zoom_counter=0;
+}
+
 void Widget::on_next_button_clicked()
 {
     next_image();
@@ -163,7 +185,7 @@ void Widget::on_prev_button_clicked()
 void Widget::on_image_changed(const QString &file_name)
 {
     zoom_counter=0;
-    setWindowTitle(QString("%0 - \"%1\"").arg(default_window_title).arg(file_name));
+    //setWindowTitle(QString("%0 - \"%1\"").arg(default_window_title).arg(file_name));
 }
 
 void Widget::prev_image()
@@ -224,17 +246,22 @@ void Widget::fill_list_view()
 {
     QStringList ls= graph_manager.get_file_names();
     ui->image_names_list_widget->show();
-    for (int i = 0; i < ls.size(); ++i) {
-        //qInfo()<<ls[i];
+    for (int i = 0; i < ls.size(); ++i)
         ui->image_names_list_widget->addItem(ls[i]);
-    }
 }
 
 void Widget::set_list_index()
 {
     auto current_index=graph_manager.get_current_index();
-    qInfo()<<current_index;
     ui->image_names_list_widget->setCurrentItem(ui->image_names_list_widget->item(current_index));
+}
+
+void Widget::make_view_background_black()
+{
+    if(ui->graph_view->backgroundBrush()==Qt::black)
+        ui->graph_view->setBackgroundBrush(Qt::white);
+    else
+        ui->graph_view->setBackgroundBrush(Qt::black);
 }
 
 

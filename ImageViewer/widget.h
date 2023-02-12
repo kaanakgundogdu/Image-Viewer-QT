@@ -26,6 +26,7 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent* event) override;
     void dragEnterEvent(QDragEnterEvent* event) override;
     void dropEvent(QDropEvent* event) override;
+    void resizeEvent(QResizeEvent* event) override;
 
 private:
     void on_next_button_clicked();
@@ -39,6 +40,7 @@ private:
     void zoom_out();
     void show_open_dialog();
     void update_buttons();
+    void make_view_background_black();
 
     void connect_buttons();
     void create_menu_bar();
@@ -47,6 +49,7 @@ private:
 
     void fill_list_view();
     void set_list_index();
+
 
 private:
     Ui::Widget *ui;
