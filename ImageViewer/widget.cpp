@@ -16,9 +16,11 @@ Widget::Widget(GraphManager& gm,QWidget *parent)
     , graph_manager(gm)
 {
     ui->setupUi(this);
-    //this->setStyleSheet("background-color: gray;");
+
     setWindowTitle(default_window_title);
+
     ui->graph_view->setScene(graph_manager.scene());
+
     connect_buttons();
     create_menu_bar();
     open_default_view();
@@ -62,7 +64,7 @@ void Widget::create_menu_bar()
 
     QAction *open = new QAction("&Open", this);
     QAction *exit = new QAction("&Exit", this);
-    QAction *makebgblack = new QAction("&makebgblack", this);
+    QAction *makebgblack = new QAction("&Change BG Color", this);
 
     file_menu->addAction(open);
     file_menu->addAction(exit);

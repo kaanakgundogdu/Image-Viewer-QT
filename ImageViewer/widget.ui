@@ -27,6 +27,21 @@
     <normaloff>:/resources/icons/hom.jpg</normaloff>:/resources/icons/hom.jpg</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
@@ -34,20 +49,20 @@
      </property>
      <widget class="QListWidget" name="image_names_list_widget">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
-        <verstretch>1</verstretch>
+        <verstretch>0</verstretch>
        </sizepolicy>
       </property>
       <property name="minimumSize">
        <size>
-        <width>1</width>
+        <width>0</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>250</width>
+        <width>180</width>
         <height>16777215</height>
        </size>
       </property>
@@ -62,6 +77,18 @@
         <width>0</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
       </property>
       <property name="resizeMode">
        <enum>QListView::Fixed</enum>
@@ -79,6 +106,14 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton:pressed {
+		background-color: #d4d2d3;
+}
+
+
+</string>
          </property>
          <property name="text">
           <string/>
@@ -100,10 +135,19 @@
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QGraphicsView" name="graph_view">
            <property name="enabled">
             <bool>true</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
            <property name="focusPolicy">
             <enum>Qt::NoFocus</enum>
@@ -114,7 +158,16 @@
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
            <property name="lineWidth">
+            <number>0</number>
+           </property>
+           <property name="midLineWidth">
             <number>0</number>
            </property>
            <property name="backgroundBrush">
@@ -142,8 +195,43 @@
              <height>100</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <family>Javanese Text</family>
+             <pointsize>16</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+        border-radius: 15px;
+		border-right: 1px solid #aaaaaa;
+		border-bottom: 1px solid #aaaaaa;
+
+}
+
+QPushButton:enabled {
+		background-color: #10efbb;
+		color: white;
+}
+
+QPushButton:pressed {
+		background-color: #0cb68e;
+		color: white;
+}
+
+
+QPushButton:hover:!pressed {
+		background-color: #3ef2c8;
+		color: white;
+}
+
+QPushButton:disabled {
+		background-color: #aaaaaa;
+		color: #ffffff;
+}</string>
+           </property>
            <property name="text">
-            <string>Open an Image</string>
+            <string>Open An Image</string>
            </property>
           </widget>
          </item>
@@ -156,6 +244,14 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton:pressed {
+		background-color: #d4d2d3;
+}
+
+
+</string>
          </property>
          <property name="text">
           <string/>
