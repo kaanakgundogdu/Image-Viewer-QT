@@ -3,6 +3,7 @@
 
 //#include <QMainWindow>
 #include <QWidget>
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -49,6 +50,9 @@ private:
 
     void fill_list_view();
     void set_list_index();
+    void selected_list_item(QString selected_item);
+    void list_item_clicked(QListWidgetItem* item);
+    void open_cliced_item(const QString item_path);
 
 
 private:

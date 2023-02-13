@@ -16,11 +16,13 @@ public:
     QStringList get_file_names();
     QString next_file();
     QString prev_file();
+    QString selected_file(const QString selected_item_path);
 
     bool has_next_file();
     bool has_prev_file();
 
     QString get_current_file_name();
+    QString get_current_file_path();
 
 private:
     QStringList file_names_in_current_path;

@@ -75,6 +75,37 @@ QString FileExplorer::prev_file()
     return current_file_path;
 }
 
+QString FileExplorer::selected_file(const QString selected_item_path)
+{
+    current_file_path=selected_item_path;
+
+    QFileInfo current(current_file_path);
+    current_file_name=current.fileName();
+
+    int index=file_names_in_current_path.indexOf(current_file_name);
+
+    current_index=index;
+
+
+    qInfo()<<current_index;
+
+    if(current_index==file_names_in_current_path.size()-1){
+        has_next=false;
+    }
+    else{
+        has_next=true;
+    }
+
+    if(current_index==0){
+        has_prev=false;
+    }
+    else{
+        has_prev=true;
+    }
+
+    return current_file_path;
+}
+
 bool FileExplorer::has_next_file()
 {
     return has_next;
@@ -88,4 +119,9 @@ bool FileExplorer::has_prev_file()
 QString FileExplorer::get_current_file_name()
 {
     return current_file_name;
+}
+
+QString FileExplorer::get_current_file_path()
+{
+    return current_file_path;
 }

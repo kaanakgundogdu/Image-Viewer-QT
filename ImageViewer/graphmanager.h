@@ -17,6 +17,8 @@ public:
     QStringList supported_extensions();
     QStringList get_file_names();
 
+    QString get_current_path();
+
     unsigned short int get_current_index();
 
     void open_image(const QString& full_path);
@@ -24,6 +26,8 @@ public:
     void prev_image();
     bool has_next_image();
     bool has_prev_image();
+
+    void open_selected_item(QString path);
 
 
     void fit_in_view();

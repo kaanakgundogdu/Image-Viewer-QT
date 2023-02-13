@@ -9,6 +9,7 @@
 #include <QMimeData>
 #include <QMenuBar>
 #include <QSplitter>
+#include <QTimer>
 
 Widget::Widget(GraphManager& gm,QWidget *parent)
     : QWidget(parent)
@@ -16,6 +17,8 @@ Widget::Widget(GraphManager& gm,QWidget *parent)
     , graph_manager(gm)
 {
     ui->setupUi(this);
+
+    //ui->layoutWidget->setStyleSheet("background-color: red");
 
     setWindowTitle(default_window_title);
 
@@ -42,6 +45,12 @@ void Widget::connect_buttons()
             this,&Widget::on_image_changed);
     connect(ui->open_image_button,&QPushButton::clicked,
             this,&Widget::show_open_dialog);
+
+//    connect(ui->image_names_list_widget,&QListWidget::currentTextChanged,
+//            this,&Widget::selected_list_item);
+
+    connect(ui->image_names_list_widget,&QListWidget::itemClicked,
+            this,&Widget::list_item_clicked);
 }
 
 void Widget::create_menu_bar()
@@ -75,7 +84,6 @@ void Widget::create_menu_bar()
     connect(makebgblack, &QAction::triggered,this,&Widget::make_view_background_black);
     connect(change_bg_action, &QAction::triggered,this,&Widget::make_view_background_black);
 
-
     update_buttons();
     this->layout()->setMenuBar(menu_bar);
 
@@ -98,7 +106,6 @@ void Widget::open_image_view()
     ui->open_image_button->hide();
 }
 
-
 void Widget::open_image(const QString full_path)
 {
     if(ui->graph_view->isHidden())
@@ -107,7 +114,7 @@ void Widget::open_image(const QString full_path)
     if(graph_manager.is_file_supported(full_path)){
         graph_manager.open_image(full_path);
         fill_list_view();
-        fit_in_view();
+        QTimer::singleShot(50, [this]{fit_in_view();});
     }
     zoom_counter=0;
 
@@ -170,6 +177,8 @@ void Widget::dropEvent(QDropEvent *event)
 
 void Widget::resizeEvent(QResizeEvent *event)
 {
+    if(ui->graph_view->isHidden())
+        return;
     fit_in_view();
     zoom_counter=0;
 }
@@ -215,7 +224,7 @@ void Widget::fit_in_view()
 
 void Widget::zoom_in()
 {
-    if(zoom_counter>8 )
+    if(zoom_counter>8)
         return;
     zoom_counter++;
     ui->graph_view->scale(1.10000,1.10000);
@@ -256,6 +265,36 @@ void Widget::set_list_index()
 {
     auto current_index=graph_manager.get_current_index();
     ui->image_names_list_widget->setCurrentItem(ui->image_names_list_widget->item(current_index));
+}
+
+void Widget::selected_list_item(QString selected_item)
+{
+    qInfo()<<selected_item;
+}
+
+void Widget::list_item_clicked(QListWidgetItem *item)
+{
+    QString cp = graph_manager.get_current_path();
+    int i=0;
+
+    for (i = cp.size()-1; i>0; --i) {
+        if(cp.at(i) == '/'){
+            break;
+        }
+    }
+
+    if(i+1<cp.size()-1){
+        cp.remove(i+1,cp.size()-1);
+        cp= cp+item->text();
+        open_cliced_item(cp);
+    }
+}
+
+void Widget::open_cliced_item(const QString item_path)
+{
+    graph_manager.open_selected_item(item_path);
+    fit_in_view();
+    update_buttons();
 }
 
 void Widget::make_view_background_black()

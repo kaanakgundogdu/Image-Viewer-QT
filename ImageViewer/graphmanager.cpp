@@ -47,9 +47,19 @@ bool GraphManager::has_prev_image()
     return file_exp.has_prev_file();
 }
 
+void GraphManager::open_selected_item(QString path)
+{
+    show_image(file_exp.selected_file(path));
+}
+
 QStringList GraphManager::get_file_names()
 {
     return file_exp.get_file_names();
+}
+
+QString GraphManager::get_current_path()
+{
+    return file_exp.get_current_file_path();
 }
 
 unsigned short GraphManager::get_current_index()
@@ -61,6 +71,7 @@ void GraphManager::fit_in_view()
 {
     if (image_scene->items().size() && image_scene->views().size()) {
         auto view=image_scene->views().at(0);
+
         view->fitInView(image_scene->items().at(0),Qt::KeepAspectRatio);
         view->setSceneRect(image_scene->items().at(0)->boundingRect());
     }
@@ -93,7 +104,6 @@ void GraphManager::show_image(const QString &full_path)
 
         emit image_changed(file_exp.get_current_file_name());
     }
-
 }
 
 
