@@ -18,8 +18,6 @@ Widget::Widget(GraphManager& gm,QWidget *parent)
 {
     ui->setupUi(this);
 
-    //ui->layoutWidget->setStyleSheet("background-color: red");
-
     setWindowTitle(default_window_title);
 
     ui->graph_view->setScene(graph_manager.scene());
@@ -33,7 +31,6 @@ Widget::~Widget()
 {
     delete ui;
 }
-
 
 void Widget::connect_buttons()
 {
